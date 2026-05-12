@@ -1,44 +1,36 @@
 const express = require("express");
 const router = express.Router();
+
 const Property = require("../models/property");
 
-// CREATE
-router.post("/", async (req, res) => {
-  try {
-    const property = new Property(req.body);
-    await property.save();
-    res.status(201).json(property);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// GET ALL
+// GET all properties
 router.get("/", async (req, res) => {
   const properties = await Property.find();
   res.json(properties);
 });
 
-// DELETE  
+// ADD property
+router.post("/", async (req, res) => {
+  const newProperty = new Property(req.body);
+  const saved = await newProperty.save();
+  res.json(saved);
+});
+
+// DELETE property
 router.delete("/:id", async (req, res) => {
-  try {
-    await Property.findByIdAndDelete(req.params.id);
-    res.json({ message: "Property deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  await Property.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
 });
-// UPDATE
+
+// UPDATE property
 router.put("/:id", async (req, res) => {
-  try {
-    const updated = await Property.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.json(updated);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const updated = await Property.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+
+  res.json(updated);
 });
+
 module.exports = router;
