@@ -7,7 +7,7 @@ export default function Properties() {
   const [maxPrice, setMaxPrice] = useState("");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:5000/api/properties")
+    fetch("https://property-app-obbm.onrender.com/api/properties")
       .then((res) => res.json())
       .then((data) => {
   setProperties(data);

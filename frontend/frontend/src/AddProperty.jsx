@@ -17,7 +17,7 @@ export default function AddProperty({ onAdd }) {
 
     console.log("SUBMIT CLICKED"); // debug
 
-    const res = await fetch("http://localhost:5000/api/properties", {
+    const res = await fetch("https://property-app-obbm.onrender.com/api/properties", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
